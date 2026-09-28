@@ -1,0 +1,45 @@
+<main class="registration-page">
+  <header class="page-header">
+    <h1>Front-End Software Development</h1>
+  </header>
+
+  <section class="intro" aria-labelledby="page-heading">
+    <h2 id="page-heading">Student Registration</h2>
+    <p>Complete the form to register for this class.</p>
+  </section>
+
+  <div *ngIf="notice() as message" class="notice" [class.notice-good]="message.kind === 'success'" [class.notice-error]="message.kind === 'error'" role="status" aria-live="polite">
+    <span><strong>{{ message.status }}:</strong> {{ message.message }}</span>
+    <button type="button" aria-label="Close message" (click)="closeNotice()">×</button>
+  </div>
+
+  <div class="content-columns">
+  <section class="form-section" aria-labelledby="form-heading">
+    <div class="section-title"><h3 id="form-heading">Registration Form</h3><span>Fields marked <b>*</b> are required.</span></div>
+    <form [formGroup]="form" (ngSubmit)="submitRegistration()" novalidate>
+      <div class="form-grid">
+        <div class="field"><label for="userEmail">Email Address <b>*</b></label><input id="userEmail" type="email" formControlName="userEmail" autocomplete="email" placeholder="name@example.com" [class.invalid]="hasError('userEmail')"><small *ngIf="hasError('userEmail')">Enter a valid email address.</small></div>
+        <div class="field"><label for="userPassword">Password <b>*</b></label><input id="userPassword" type="password" formControlName="userPassword" autocomplete="new-password" placeholder="8–15 alphanumeric characters" [class.invalid]="hasError('userPassword')"><small *ngIf="hasError('userPassword')">Password must be 8–15 alphanumeric characters.</small><small *ngIf="!hasError('userPassword')" class="hint">Use 8–15 letters and numbers.</small></div>
+        <div class="field"><label for="userFirstName">First Name <b>*</b></label><input id="userFirstName" type="text" formControlName="userFirstName" autocomplete="given-name" [class.invalid]="hasError('userFirstName')"><small *ngIf="hasError('userFirstName')">First name is required.</small></div>
+        <div class="field"><label for="userLastName">Last Name <b>*</b></label><input id="userLastName" type="text" formControlName="userLastName" autocomplete="family-name" [class.invalid]="hasError('userLastName')"><small *ngIf="hasError('userLastName')">Last name is required.</small></div>
+        <div class="field"><label for="userTel">Telephone Number <b>*</b></label><input id="userTel" type="tel" inputmode="numeric" formControlName="userTel" autocomplete="tel" placeholder="Digits only" [class.invalid]="hasError('userTel')"><small *ngIf="hasError('userTel')">Telephone number must contain digits only.</small></div>
+        <div class="field"><label for="dateOfBirth">Date of Birth <b>*</b></label><input id="dateOfBirth" type="text" maxlength="10" inputmode="numeric" autocomplete="bday" placeholder="YYYY-MM-DD" formControlName="dateOfBirth" aria-describedby="dob-note" [class.invalid]="hasError('dateOfBirth')"><small id="dob-note" [class.error-text]="hasError('dateOfBirth')">{{ hasError('dateOfBirth') ? birthDateHelp : 'Enter the date as YYYY-MM-DD (for example, 2012-05-26).' }}</small></div>
+      </div>
+      <div class="form-actions"><button type="submit">Register Student</button></div>
+    </form>
+  </section>
+
+  <section class="students-section" aria-labelledby="students-heading">
+    <div class="section-title"><div><h3 id="students-heading">Registered Students</h3><p>Current class registration list</p></div><span>{{ classSize() }} students</span></div>
+    <div class="table-scroll"><table>
+      <thead><tr><th scope="col">Full Name</th><th scope="col">Email Address</th><th scope="col">Telephone Number</th><th scope="col">Age</th></tr></thead>
+      <tbody>
+        <tr *ngFor="let student of classList()"><td>{{ student.userFirstName }} {{ student.userLastName }}</td><td>{{ student.userEmail }}</td><td>{{ student.userTel }}</td><td>{{ student.getAge() }}</td></tr>
+        <tr *ngIf="classSize() === 0"><td colspan="4" class="empty-row">No students are registered yet.</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+  </div>
+
+  <footer>66-131216 · Front-End Software Development</footer>
+</main>

@@ -1,0 +1,10 @@
+> fesd-fn-022@0.0.0 test
+> ng test --watch=false
+
+✔ Building...
+Application bundle generation complete.
+
+RUN v4.1.11 /Users/sirius/Downloads/FESD-FN-022
+
+Test Files  1 passed (1)
+Tests       10 passed (10)

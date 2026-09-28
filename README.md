@@ -1,0 +1,1 @@
+FESD-FN-022 is an Angular and Bootstrap student registration application for the 66-131216 Front-End Software Development class. It validates student details, accepts dates of birth in YYYY-MM-DD format, and maintains a class register with each student's age.
